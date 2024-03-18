@@ -4,6 +4,7 @@ from random import randint
 DEFAULT_ATTACK = 5
 DEFAULT_DEFENCE = 10
 
+
 class Character:
     BRIEF_DESC_CHAR_CLASS = 'отважный любитель приключений'
     RANGE_VALUE_ATTACK = (1, 3)
@@ -23,12 +24,13 @@ class Character:
         return f'{self.name} блокировал {value_defence} ед. урона'
 
     def special(self):
-        return (f'{self.name} применил умение "{self.SPECIAL_SKILL} ' 
+        return (f'{self.name} применил умение "{self.SPECIAL_SKILL} '
                 f'{self.SPECIAL_BUFF}"')
-    
+
     def __str__(self):
         return f'{self.__class__.__name__} - {self.BRIEF_DESC_CHAR_CLASS}'
-    
+
+
 class Warrior(Character):
     BRIEF_DESC_CHAR_CLASS = ('дерзкий воин ближнего боя. '
                              'Сильный, выносливый и отважный')
@@ -38,6 +40,7 @@ class Warrior(Character):
     SPECIAL_SKILL = 'Выносливость'
     SPECIAL_BUFF = DEFAULT_STAMINA + 25
 
+
 class Mage(Character):
     BRIEF_DESC_CHAR_CLASS = (' находчивый воин дальнего боя. '
                              'Обладает высоким интеллектом')
@@ -45,6 +48,7 @@ class Mage(Character):
     RANGE_VALUE_DEFENCE = (-2, 2)
     SPECIAL_SKILL = 'Атака'
     SPECIAL_BUFF = DEFAULT_ATTACK + 40
+
 
 class Healer(Character):
     BRIEF_DESC_CHAR_CLASS = (' могущественный заклинатель. '
@@ -55,7 +59,7 @@ class Healer(Character):
     SPECIAL_BUFF = DEFAULT_DEFENCE + 30
 
 
-def choice_char_class(char_name: str)-> Character:
+def choice_char_class(char_name: str) -> Character:
     game_classes = {
         'warrior': Warrior,
         'mage': Mage,
@@ -69,11 +73,12 @@ def choice_char_class(char_name: str)-> Character:
         char_class: Character = game_classes[selected_class](char_name)
         print(char_class)
         approve_choice = input('Нажми (y), чтобы подтвердить выбор,'
-                               ' или любую другую кнопку, ' 
+                               ' или любую другую кнопку, '
                                'чтобы выбрать другого персонажа ')
     return char_class
-    
-def start_training(char_class : Character):
+
+
+def start_training(char_class: Character):
     commands = {
         'attack': char_class.attack,
         'defence': char_class.defence,
@@ -81,14 +86,15 @@ def start_training(char_class : Character):
     }
     cmd = None
     cmd = input('Потренируйся управлять своими навыками. Введи одну из команд:'
-          'attack — чтобы атаковать противника,'
-          'defence — чтобы блокировать атаку противника или special —'
-          'чтобы использовать свою суперсилу.'
-          'Если не хочешь тренироваться, введи команду skip.')
+                'attack — чтобы атаковать противника,'
+                'defence — чтобы блокировать атаку противника или special —'
+                'чтобы использовать свою суперсилу.'
+                'Если не хочешь тренироваться, введи команду skip.')
     while cmd != 'skip' and cmd in commands:
-        print (commands[cmd]())
+        print(commands[cmd]())
         cmd = input('Введите команду ')
-    print ('Тренировка окончена')
+    print('Тренировка окончена')
+
 
 char_name = input('Введите имя своего персонажа ')
 char_class = choice_char_class(char_name)
